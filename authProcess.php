@@ -6,6 +6,7 @@
     require_once("dao/UserDAO.php");
 
     $message = new Message($BASE_URL);
+    $userDAO = new UserDAO($conn, $BASE_URL);
 
     //Resgata o tipo do formulário
     $type = filter_input(INPUT_POST, "type");
@@ -17,18 +18,45 @@
         $lastname = filter_input(INPUT_POST, "lastname");
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
-        $confirmPassword = filter_input(INPUT_POST, "confirmPassword");
+        $confirmPassword = filter_input(INPUT_POST, "confirmpassword");
 
-        //Verificação de dados mínimos
-        if($name && $lastname && $email && $password) {
+        
+        if ($name && $lastname && $email && $password) {
+                
+            
+            if($password === $confirmPassword) {
 
+                
+                if($userDAO->findByEmail($email) === false) {
+
+                    $user = new User();
+
+                    $userToken = $user->generateToken();
+                    $finalPassword = $user->generatePassword($password);
+
+                    $user->name = $name;
+                    $user->lastname = $lastname;
+                    $user->email = $email;
+                    $user->password = $finalPassword;
+                    $user->token = $userToken;
+
+                    $auth = true;
+
+                    $userDAO->create($user, $auth);
+
+                } else {
+
+                    $message->setMessage("E-mail já cadastrado no sistema", "error", "back");
+                }
+
+            } else {
+
+                $message->setMessage("As senhas digitadas não coincidem", "error", "back");
+            }
 
         } else {
 
-            //Enviar msg de erro, de dados faltantes
-            $message->setMessage("Por favor, preencha todos os campos.", "error", "back");
+            $message->setMessage("Por favor preencha todos os campos", "error", "back");
+            
         }
-        
-    } else if($type === "login") {
-        
     }
