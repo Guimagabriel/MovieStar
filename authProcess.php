@@ -60,3 +60,19 @@
             
         }
     }
+    else if($type === "login") {
+
+        $email = filter_input(INPUT_POST, "email");
+        $password = filter_input(INPUT_POST, "password");
+    
+        if($userDAO->authenticateUser($email, $password)) {
+                        
+            $message->setMessage("Seja bem vindo!", "success", "/editProfile.php");
+                        
+        } else {
+            $message->setMessage("Usuário ou senha incorretos.", "error", "back");
+        }
+
+    } else {
+        $message->setMessage("Informações inválidas!", "error", "/index.php");
+    }
