@@ -70,7 +70,7 @@
             $message->setMessage("Seja bem vindo!", "success", "/editProfile.php");
                         
         } else {
-            $message->setMessage("Usuário ou senha incorretos.", "error", "back");
+            $message->setMessage("Email ou senha incorretos.", "error", "back");
         }
 
     } else {
