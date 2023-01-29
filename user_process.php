@@ -48,7 +48,7 @@
         $userData->image = $imageName;
 
       } else {
-        $message->setMessage("Tipo de imagem inválido!", "error", "back");
+        $message->setMessage("Tipo de imagem inválido, insira jpg ou png", "error", "back");
       }
 
     }
