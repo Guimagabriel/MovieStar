@@ -65,5 +65,5 @@ if($type === "create"){
   }
 
 } else {
-    $message->setMessage("Informações inválidas!", "error", "index.php");
+    $message->setMessage("Informações inválidas!", "error", "/index.php");
 }

@@ -22,6 +22,7 @@ class MovieDAO implements MovieDAOInterface {
     $movie->id = $data["id"];
     $movie->title = $data["title"];
     $movie->description = $data["description"];
+    $movie->length = $data["length"];
     $movie->category = $data["category"];
     $movie->image = $data["image"];
     $movie->trailer = $data["trailer"];
@@ -59,13 +60,75 @@ class MovieDAO implements MovieDAOInterface {
 
   public function getMoviesByCategory($category){
 
+    $movies = [];
+
+    $stmt = $this->conn->prepare("SELECT * FROM movies WHERE category = :category ORDER BY id DESC");
+
+    $stmt->bindParam(":category", $category);
+
+    $stmt->execute();
+
+    if($stmt->rowCount() > 0){
+
+      $moviesArray = $stmt->fetchAll();
+
+      foreach($moviesArray as $movie) {
+        $movies[] = $this->buildMovie($movie);
+      }
+
+    }
+
+    return $movies;
+
   }
 
   public function getMoviesByUserId($users_id){
 
+    $movies = [];
+
+    $stmt = $this->conn->prepare("SELECT * FROM movies WHERE users_id = :users_id");
+
+    $stmt->bindParam(":users_id", $users_id);
+
+    $stmt->execute();
+
+    if($stmt->rowCount() > 0){
+
+      $moviesArray = $stmt->fetchAll();
+
+      foreach($moviesArray as $movie) {
+        $movies[] = $this->buildMovie($movie);
+      }
+
+    }
+
+    return $movies;
+
   }
 
   public function findById($id){
+
+    $movie = [];
+
+    $stmt = $this->conn->prepare("SELECT * FROM movies WHERE id = :id");
+
+    $stmt->bindParam(":id", $id);
+
+    $stmt->execute();
+
+    if($stmt->rowCount() > 0){
+
+      $movieData = $stmt->fetch();
+
+      $movie = $this->buildMovie($movieData);
+
+      return $movie;
+
+    } else {
+
+      return false;
+    
+    }
 
   }
 

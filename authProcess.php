@@ -67,7 +67,7 @@
     
         if($userDAO->authenticateUser($email, $password)) {
                         
-            $message->setMessage("Seja bem vindo!", "success", "/editProfile.php");
+            $message->setMessage("Seja bem vindo!", "success", "/index.php");
                         
         } else {
             $message->setMessage("Email ou senha incorretos.", "error", "back");
