@@ -8,7 +8,7 @@
    $movie;
    $movieDAO = new MovieDAO($conn, $BASE_URL);
 
-   if(empty($id)){
+   if(empty($id)) {
       $message->setMessage("Filme não encontrado", "error", "/index.php");
    } else {
 
@@ -23,6 +23,7 @@
       $movie->image = "movie_cover.jpg";
    }
 
+   $alreadyReviewed = false;
 ?>
 <div id="main-container" class="container-fluid">
    <div class="row">
@@ -43,6 +44,7 @@
       </div>
       <div class="offset-md-1 col-md-10" id="reviews-container">
          <h3 id="reviews-title">Avaliações:</h3>
+         <?php if(!empty($userData) && !$alreadyReviewed): ?>
          <div class="col-md-12" id="review-form-container">
             <h4>Envia sua avaliação:</h4>
             <p class="page-description">Preencha o formulário com a nota e o comentário sobre o filme</p>
@@ -72,6 +74,7 @@
                <input type="submit" class="btn card-btn" value="Enviar comentário">
             </form>
          </div>
+         <?php endif; ?>
          <div class="col-md-12 review">
             <div class="row">
                <div class="col-md-1">
