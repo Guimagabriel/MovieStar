@@ -16,8 +16,14 @@
         <h2 class="section-title">Filmes novos</h2>
         <p class="section-description">Veja as críticas dos últimos filmes adicionados no MovieStar</p>
         <div class="movies-container">
-            <?php foreach($latestMovies as $movie): ?>
-                <?php require("templates/movie_card.php")?>
+            <?php $limite = 5; $cont = 0; foreach($latestMovies as $movie):?>
+            <?php
+                if($cont == $limite) {
+                    break;
+                }                     
+                require("templates/movie_card.php");
+                $cont++;                    
+            ?>
             <?php endforeach; ?>
             <?php if(count($latestMovies) === 0): ?>
                 <p class="empty-list">Ainda não há filmes cadastrados!</p>

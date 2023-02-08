@@ -1,1 +1,1 @@
-Este projeto é sobre um site de filmes onde você pode criar um cadastro, editar seu perfil, buscar e adicionar filmes, críticas e comentários. Último projeto do curso 'PHP do zero a maestria com 4 projetos' do matheus battisti.
+Este projeto é sobre um site de filmes onde você pode fazer cadastro, editar seu perfil, buscar e adicionar filmes, fazer críticas e comentários. Último projeto do curso 'PHP do zero a maestria com 4 projetos' do matheus battisti.
